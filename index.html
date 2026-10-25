@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PIXEL | Creative Digital Studio</title>
+  <meta name="description" content="PIXEL is an independent creative digital studio. Brand identity, UI/UX design and web development, from first sketch to digital experience.">
+  <meta name="theme-color" content="#4D243D">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a class="wordmark" href="#top" aria-label="PIXEL, back to top">PIXEL<span class="wordmark-dot" aria-hidden="true"></span></a>
+
+      <input class="nav-menu-toggle" type="checkbox" id="nav-menu-toggle">
+      <label class="nav-toggle" for="nav-menu-toggle">
+        <span class="visually-hidden">Menu</span>
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </label>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a class="btn btn--small" href="#contact"><span class="btn-label">Let's talk</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow fade-up delay-1">Independent creative digital studio</p>
+
+          <h1 class="hero-title" id="hero-title">
+            <span class="line"><span class="word">Your vision,</span></span>
+            <span class="line"><span class="word word--accent">reimagined.
+              <!-- <svg class="underline" viewBox="0 0 300 24" aria-hidden="true" focusable="false">
+                <path d="M3 14 C 40 2, 70 24, 110 10 S 180 2, 220 12 S 270 20, 297 8" pathLength="1"/>
+              </svg> -->
+            </span></span>
+          </h1>
+
+          <p class="hero-lead fade-up delay-3">From first sketch to digital experience, we make ideas real. PIXEL joins brand strategy, interface design and web development in one small, curious team.</p>
+
+          <div class="hero-actions fade-up delay-4">
+            <a class="btn btn--primary" href="#contact"><span class="btn-label">Start a project</span><span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+            <a class="btn btn--ghost" href="#services"><span class="btn-label">Explore services</span><span class="btn-arrow" aria-hidden="true">&darr;</span></a>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="blob blob--pink"></div>
+          <div class="blob blob--blue"></div>
+          <div class="blob blob--mint"></div>
+          <div class="dot"></div>
+          <div class="pixel-grid">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <svg class="swoosh" viewBox="0 0 400 200" focusable="false">
+            <path d="M10 160 C 80 20, 160 20, 200 100 S 320 190, 390 40" pathLength="1"/>
+          </svg>
+        </div>
+
+        <a class="badge" href="#services" aria-label="Explore our services">
+          <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+            <defs><path id="badge-circle" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0"/></defs>
+            <text class="badge-text"><textPath href="#badge-circle">strategy • design • development • </textPath></text>
+          </svg>
+          <span class="badge-arrow" aria-hidden="true">&darr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <p class="marquee-group"><span>Strategy</span><span class="star">&#10038;</span><span>Design</span><span class="star">&#10038;</span><span>Development</span><span class="star">&#10038;</span><span>Digital experiences</span><span class="star">&#10038;</span></p>
+        <p class="marquee-group"><span>Strategy</span><span class="star">&#10038;</span><span>Design</span><span class="star">&#10038;</span><span>Development</span><span class="star">&#10038;</span><span>Digital experiences</span><span class="star">&#10038;</span></p>
+      </div>
+    </div>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div class="about-head reveal">
+          <p class="section-label">About PIXEL</p>
+          <h2 id="about-title" class="about-title">Design <em>beyond</em> the screen.</h2>
+        </div>
+
+        <div class="about-body reveal">
+          <p class="about-lead">Good design is more than making things look attractive. It communicates an idea, builds an identity people remember, and makes a digital product feel natural to use.</p>
+          <p>That is why we don't split branding, interface design and development into separate jobs. Strategy shapes the brand, the brand shapes the interface, and the interface becomes the website. One thread, from the first idea to launch day.</p>
+          <p>We work with startups, entrepreneurs, small businesses and creators, always in the open and always alongside you.</p>
+        </div>
+
+        <ol class="flow reveal" aria-label="How our services connect">
+          <li><span class="flow-num">01</span> Strategy</li>
+          <li><span class="flow-num">02</span> Brand</li>
+          <li><span class="flow-num">03</span> Interface</li>
+          <li><span class="flow-num">04</span> Code</li>
+        </ol>
+
+        <ul class="values reveal">
+          <li><h3>Curious first</h3><p>We ask a lot of questions before we open a design tool.</p></li>
+          <li><h3>Made together</h3><p>You are in the room at every stage, not just at the reveal.</p></li>
+          <li><h3>Careful to the pixel</h3><p>Small details are where a brand starts to feel real.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services-head reveal">
+          <p class="section-label">What we do</p>
+          <h2 id="services-title" class="section-title">Three services, <em>one</em> process.</h2>
+          <p class="services-intro">Each one is strong alone. Together they keep your idea consistent from the first sketch to the finished site.</p>
+        </div>
+
+        <div class="service-list">
+
+          <article class="service service--brand reveal">
+            <span class="service-num" aria-hidden="true">01</span>
+            <div class="service-body">
+              <h3>Brand Identity &amp; Strategy</h3>
+              <p>Before anything is drawn, we work out who you are and why it matters. Then we build an identity that looks and sounds like you, everywhere it appears.</p>
+            </div>
+            <ul class="deliverables">
+              <li>Brand discovery and creative direction</li>
+              <li>Logo and visual identity systems</li>
+              <li>Color palettes and typography</li>
+              <li>Brand guidelines</li>
+              <li>Social media visual assets</li>
+            </ul>
+            <div class="service-art" aria-hidden="true">
+              <svg viewBox="0 0 160 120" focusable="false">
+                <circle class="c1" cx="60" cy="60" r="34"/>
+                <circle class="c2" cx="100" cy="60" r="34"/>
+                <circle class="c3" cx="80" cy="36" r="34"/>
+              </svg>
+            </div>
+          </article>
+
+          <article class="service service--ui reveal">
+            <span class="service-num" aria-hidden="true">02</span>
+            <div class="service-body">
+              <h3>UI/UX Design</h3>
+              <p>Interfaces that are lovely to look at and effortless to use, designed around real people and the real things they came to do.</p>
+            </div>
+            <ul class="deliverables">
+              <li>Website and mobile app interface design</li>
+              <li>User flows and wireframes</li>
+              <li>Interactive prototypes</li>
+              <li>Design systems and components</li>
+              <li>Usability improvements</li>
+            </ul>
+            <div class="service-art" aria-hidden="true">
+              <svg viewBox="0 0 160 120" focusable="false">
+                <rect class="frame" x="20" y="14" width="120" height="92" rx="10"/>
+                <rect class="bar" x="32" y="28" width="50" height="8" rx="4"/>
+                <rect class="block" x="32" y="46" width="42" height="42" rx="6"/>
+                <rect class="line" x="84" y="48" width="44" height="6" rx="3"/>
+                <rect class="line" x="84" y="62" width="34" height="6" rx="3"/>
+                <rect class="line" x="84" y="76" width="40" height="6" rx="3"/>
+                <path class="cursor" d="M96 70 L96 96 L103 90 L108 101 L113 99 L108 88 L117 88 Z"/>
+              </svg>
+            </div>
+          </article>
+
+          <article class="service service--web reveal">
+            <span class="service-num" aria-hidden="true">03</span>
+            <div class="service-body">
+              <h3>Web Development</h3>
+              <p>We turn the design into fast, responsive pages that behave exactly the way they were drawn, on every screen.</p>
+            </div>
+            <ul class="deliverables">
+              <li>Landing pages and business websites</li>
+              <li>Responsive front-end development</li>
+              <li>Interactive elements and CSS animation</li>
+              <li>Performance and usability tuning</li>
+              <li>Cross-browser testing and maintenance</li>
+            </ul>
+            <div class="service-art" aria-hidden="true">
+              <svg viewBox="0 0 160 120" focusable="false">
+                <path class="bracket b-left" d="M56 32 L28 60 L56 88"/>
+                <path class="bracket b-right" d="M104 32 L132 60 L104 88"/>
+                <path class="slash" d="M90 28 L70 92"/>
+              </svg>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section class="team" id="team" aria-labelledby="team-title">
+      <div class="container">
+        <div class="team-head reveal">
+          <p class="section-label">The team</p>
+          <h2 id="team-title" class="section-title">Three people, <em>one</em> studio.</h2>
+          <p class="team-note">A small team of thoughtful people, bringing strategy, design and code together.</p>
+        </div>
+
+        <div class="team-grid">
+
+          <article class="member member--cd reveal">
+            <svg class="portrait" viewBox="0 0 240 280" role="img" aria-label="Professional portrait of Yasmine Trabelsi, creative director">
+              <defs>
+                <clipPath id="portrait-frame-yasmine">
+                  <path d="M120 8 C 188 2, 232 42, 234 108 C 238 184, 198 262, 126 272 C 54 280, 8 230, 10 150 C 12 78, 48 16, 120 8Z"/>
+                </clipPath>
+              </defs>
+              <path class="p-bg" d="M120 8 C 188 2, 232 42, 234 108 C 238 184, 198 262, 126 272 C 54 280, 8 230, 10 150 C 12 78, 48 16, 120 8Z"/>
+              <image class="portrait-image" href="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=700&amp;h=850&amp;q=85" x="0" y="0" width="240" height="280" preserveAspectRatio="xMidYMid slice" clip-path="url(#portrait-frame-yasmine)"/>
+            </svg>
+            <h3>Yasmine Trabelsi</h3>
+            <p class="role">Creative Director</p>
+            <p>Sets the creative direction and keeps every project true to its idea. Brand strategy, art direction, and strong opinions about kerning.</p>
+          </article>
+
+          <article class="member member--ux reveal">
+            <svg class="portrait" viewBox="0 0 240 280" role="img" aria-label="Professional portrait of Karim Ben Salah, UI/UX designer">
+              <defs>
+                <clipPath id="portrait-frame-karim">
+                  <path d="M112 8 C 184 0, 232 42, 234 112 C 238 188, 190 268, 112 274 C 38 278, 4 220, 8 146 C 12 74, 42 18, 112 8Z"/>
+                </clipPath>
+              </defs>
+              <path class="p-bg" d="M112 8 C 184 0, 232 42, 234 112 C 238 188, 190 268, 112 274 C 38 278, 4 220, 8 146 C 12 74, 42 18, 112 8Z"/>
+              <image class="portrait-image" href="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=700&amp;h=850&amp;q=85" x="0" y="0" width="240" height="280" preserveAspectRatio="xMidYMid slice" clip-path="url(#portrait-frame-karim)"/>
+            </svg>
+            <h3>Karim Ben Salah</h3>
+            <p class="role">UI/UX Designer</p>
+            <p>Shapes interfaces, user flows and prototypes. Tests early, listens closely, and keeps asking whether it feels natural.</p>
+          </article>
+
+          <article class="member member--dev reveal">
+            <svg class="portrait" viewBox="0 0 240 280" role="img" aria-label="Professional portrait of Lina Haddad, web developer">
+              <defs>
+                <clipPath id="portrait-frame-lina">
+                  <path d="M128 8 C 198 10, 238 62, 234 132 C 230 208, 182 270, 108 274 C 34 278, 4 220, 10 142 C 16 68, 56 4, 128 8Z"/>
+                </clipPath>
+              </defs>
+              <path class="p-bg" d="M128 8 C 198 10, 238 62, 234 132 C 230 208, 182 270, 108 274 C 34 278, 4 220, 10 142 C 16 68, 56 4, 128 8Z"/>
+              <image class="portrait-image" href="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=700&amp;h=850&amp;q=85" x="0" y="0" width="240" height="280" preserveAspectRatio="xMidYMid slice" clip-path="url(#portrait-frame-lina)"/>
+            </svg>
+            <h3>Lina Haddad</h3>
+            <p class="role">Web Developer</p>
+            <p>Turns designs into responsive, accessible pages with plenty of motion in the right places. Loves a clean stylesheet.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+
+      <div class="container contact-grid">
+        <div class="contact-copy reveal">
+          <p class="section-label">Contact</p>
+          <h2 id="contact-title" class="contact-title">Have an idea? <em>Let's make it happen.</em></h2>
+          <p class="contact-lead">Tell us a little about what you're dreaming up. We read every message and reply within two working days.</p>
+
+          <ul class="contact-details">
+            <li><span class="detail-label">Email</span> <a href="mailto:hello@pixel-studio.example">hello@pixel-studio.example</a></li>
+            <li><span class="detail-label">Studio</span> Remote-first, working worldwide</li>
+            <li><span class="detail-label">Follow</span>
+              <a href="#contact" aria-label="PIXEL on Instagram (placeholder link)">Instagram</a>,
+              <a href="#contact" aria-label="PIXEL on Behance (placeholder link)">Behance</a>,
+              <a href="#contact" aria-label="PIXEL on LinkedIn (placeholder link)">LinkedIn</a>
+            </li>
+          </ul>
+        </div>
+
+        <form class="contact-form reveal" id="contact-form" action="#" method="post">
+
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required minlength="2" placeholder="Alex Martin">
+          </div>
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="alex@example.com">
+          </div>
+
+          <div class="field">
+            <label for="project">Project type</label>
+            <select id="project" name="project" required>
+              <option value="" selected disabled>Choose one...</option>
+              <option value="brand">Brand identity &amp; strategy</option>
+              <option value="uiux">UI/UX design</option>
+              <option value="web">Web development</option>
+              <option value="all">The full journey</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">Your idea</label>
+            <textarea id="message" name="message" rows="5" required minlength="10" placeholder="What are you working on, and what would you like help with?"></textarea>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="submit"><span class="btn-label">Send message</span><span class="btn-arrow" aria-hidden="true">&rarr;</span></button>
+
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <p class="footer-wordmark">PIXEL</p>
+        <p class="footer-slogan">Your vision, reimagined.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <ul class="footer-social" aria-label="Social media (placeholders)">
+        <li><a href="#contact">Instagram</a></li>
+        <li><a href="#contact">Behance</a></li>
+        <li><a href="#contact">LinkedIn</a></li>
+      </ul>
+
+      <p class="footer-copy">&copy; <span id="year">2026</span> PIXEL Creative Digital Studio. A fictional studio created for a web development assignment.</p>
+    </div>
+  </footer>
+</body>
+</html>
