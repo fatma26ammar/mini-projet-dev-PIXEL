@@ -1,24 +1,4 @@
-/* ==========================================================
-   PIXEL — Creative Digital Studio
-   style.css
 
-   Contents
-   1. Design tokens (variables)
-   2. Reset and base
-   3. Utilities
-   4. Buttons
-   5. Header and navigation
-   6. Hero
-   7. Marquee
-   8. About
-   9. Services
-   10. Team
-   11. Contact
-   12. Footer
-   13. Keyframes
-   14. Responsive (tablet, mobile)
-   15. Reduced motion
-   ========================================================== */
 
 
 /* ---------- 1. Design tokens ---------- */
@@ -229,7 +209,7 @@ em { font-style: italic; color: var(--berry); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3#);
+  gap: var(--space-3);
   height: 100%;
   width: min(100% - 2 * var(--gutter), var(--container));
   margin-inline: auto;
@@ -295,7 +275,6 @@ em { font-style: italic; color: var(--berry); }
 .nav-toggle { display: none; }
 
 
-/* ---------- 6. Hero ---------- */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -321,14 +300,6 @@ em { font-style: italic; color: var(--berry); }
   padding-block: var(--space-4);
 }
 
-.eyebrow {
-  margin-bottom: var(--space-2);
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--berry);
-}
 
 .hero-title { font-size: var(--fs-hero); line-height: 0.98; }
 

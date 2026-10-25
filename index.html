@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"class="js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&amp;display=swap">
   <link rel="stylesheet" href="style.css">
+  
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -58,7 +59,7 @@
           <p class="hero-lead fade-up delay-3">From first sketch to digital experience, we make ideas real. PIXEL joins brand strategy, interface design and web development in one small, curious team.</p>
 
           <div class="hero-actions fade-up delay-4">
-            <a class="btn btn--primary" href="#contact"><span class="btn-label">Start a project</span><span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+            <a class="btn btn--primary" href="#contact" data-modal-open="project-modal"><span class="btn-label">Start a project</span><span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
             <a class="btn btn--ghost" href="#services"><span class="btn-label">Explore services</span><span class="btn-arrow" aria-hidden="true">&darr;</span></a>
           </div>
         </div>
@@ -97,7 +98,7 @@
       </div>
     </div>
 
-    <!-- ============ ABOUT ============ -->
+    <!--section about -->
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="container about-grid">
         <div class="about-head reveal">
@@ -123,6 +124,27 @@
           <li><h3>Made together</h3><p>You are in the room at every stage, not just at the reveal.</p></li>
           <li><h3>Careful to the pixel</h3><p>Small details are where a brand starts to feel real.</p></li>
         </ul>
+        <div class="stats-block reveal">
+          <ul class="stats" aria-label="PIXEL in numbers">
+            <li class="stat">
+              <p class="stat-value"><span class="stat-number" id="stat-projects">48</span>+</p>
+              <p class="stat-label">Projects delivered</p>
+            </li>
+            <li class="stat">
+              <p class="stat-value"><span class="stat-number" id="stat-clients">32</span></p>
+              <p class="stat-label">Clients supported</p>
+            </li>
+            <li class="stat">
+              <p class="stat-value"><span class="stat-number" id="stat-years">6</span></p>
+              <p class="stat-label">Years of experience</p>
+            </li>
+            <li class="stat">
+              <p class="stat-value"><span class="stat-number" id="stat-countries">5</span></p>
+              <p class="stat-label">Countries worked in</p>
+            </li>
+          </ul>
+          <p class="stats-note">Fictional numbers for a fictional studio.</p>
+        </div>
       </div>
     </section>
 
@@ -210,6 +232,41 @@
         </div>
       </div>
     </section>
+    <!-- testominals  -->
+<section class="testimonials" id="testimonials" aria-labelledby="testimonials-title">
+      <div class="container">
+        <div class="testimonials-head reveal">
+          <p class="section-label">Kind words</p>
+          <h2 id="testimonials-title" class="section-title">What clients <em>say</em>.</h2>
+        </div>
+
+        <div class="carousel reveal" id="carousel" role="group" aria-roledescription="carousel" aria-label="Client testimonials">
+          <div class="carousel-slide" id="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 4" aria-live="polite">
+            <figure class="carousel-figure">
+              <blockquote class="carousel-quote">
+                <p id="carousel-quote">PIXEL listened first and designed second. Our brand finally looks the way we sound, and customers notice it straight away.</p>
+              </blockquote>
+              <figcaption class="carousel-author">
+                <span class="carousel-avatar" id="carousel-avatar" data-tone="0" aria-hidden="true">AG</span>
+                <span class="carousel-person">
+                  <span class="carousel-name" id="carousel-name">Amel Gharbi</span>
+                  <span class="carousel-role" id="carousel-role">Founder, Mellow Skincare</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn carousel-prev" type="button" aria-label="Previous testimonial"><span aria-hidden="true">&larr;</span></button>
+            <div class="carousel-dots" role="group" aria-label="Choose a testimonial"></div>
+            <button class="carousel-btn carousel-next" type="button" aria-label="Next testimonial"><span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </div>
+
+        <p class="testimonials-note">Fictional testimonials written for a student project.</p>
+      </div>
+    </section>
+
 
     <!-- ============ TEAM ============ -->
     <section class="team" id="team" aria-labelledby="team-title">
@@ -291,38 +348,43 @@
           </ul>
         </div>
 
-        <form class="contact-form reveal" id="contact-form" action="#" method="post">
+        <form class="contact-form reveal" id="contact-form" action="#" method="post" novalidate>
 
           <div class="field">
             <label for="name">Your name</label>
-            <input type="text" id="name" name="name" autocomplete="name" required minlength="2" placeholder="Alex Martin">
+            <input type="text" id="name" name="name" autocomplete="name" required minlength="2" placeholder="Alex Martin" aria-describedby="name-error">
+            <p class="field-error" id="name-error"></p>
           </div>
 
           <div class="field">
             <label for="email">Email address</label>
-            <input type="email" id="email" name="email" autocomplete="email" required placeholder="alex@example.com">
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="alex@example.com" aria-describedby="email-error">
+            <p class="field-error" id="email-error"></p>
           </div>
-
+ 
           <div class="field">
             <label for="project">Project type</label>
-            <select id="project" name="project" required>
+            <select id="project" name="project" required aria-describedby="project-error">
               <option value="" selected disabled>Choose one...</option>
               <option value="brand">Brand identity &amp; strategy</option>
               <option value="uiux">UI/UX design</option>
               <option value="web">Web development</option>
               <option value="all">The full journey</option>
             </select>
+            <p class="field-error" id="project-error"></p>
           </div>
-
+ 
           <div class="field">
             <label for="message">Your idea</label>
-            <textarea id="message" name="message" rows="5" required minlength="10" placeholder="What are you working on, and what would you like help with?"></textarea>
+            <textarea id="message" name="message" rows="5" required minlength="10" placeholder="What are you working on, and what would you like help with?" aria-describedby="message-error"></textarea>
+            <p class="field-error" id="message-error"></p>
           </div>
-
+ 
           <button class="btn btn--primary btn--block" type="submit"><span class="btn-label">Send message</span><span class="btn-arrow" aria-hidden="true">&rarr;</span></button>
-
+ 
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
+ 
       </div>
     </section>
 
@@ -354,5 +416,37 @@
       <p class="footer-copy">&copy; <span id="year">2026</span> PIXEL Creative Digital Studio. A fictional studio created for a web development assignment.</p>
     </div>
   </footer>
+  <dialog class="modal" id="project-modal" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal-card">
+      <button class="modal-close" type="button" data-modal-close aria-label="Close dialog"><span aria-hidden="true">&times;</span></button>
+ 
+      <p class="section-label">Start a project</p>
+      <h2 class="modal-title" id="modal-title">What shall we <em>make</em> together?</h2>
+      <p id="modal-desc">Pick the kind of project you have in mind and we'll pre-fill the contact form for you. No commitment, just a first hello.</p>
+ 
+      <form class="modal-form" id="modal-form">
+        <fieldset class="chip-group">
+          <legend>Project type</legend>
+          <label class="chip"><input type="radio" name="modal-project" value="brand"><span>Brand identity &amp; strategy</span></label>
+          <label class="chip"><input type="radio" name="modal-project" value="uiux"><span>UI/UX design</span></label>
+          <label class="chip"><input type="radio" name="modal-project" value="web"><span>Web development</span></label>
+          <label class="chip"><input type="radio" name="modal-project" value="all" checked><span>The full journey</span></label>
+        </fieldset>
+ 
+        <h3 class="modal-subtitle">What happens next</h3>
+        <ol class="modal-steps">
+          <li>You send us a few lines about your idea.</li>
+          <li>We reply within two working days.</li>
+          <li>We book a free, friendly intro call.</li>
+        </ol>
+ 
+        <div class="modal-actions">
+          <button class="btn btn--primary" type="submit"><span class="btn-label">Continue to the form</span><span class="btn-arrow" aria-hidden="true">&rarr;</span></button>
+          <button class="btn btn--ghost" type="button" data-modal-close><span class="btn-label">Maybe later</span></button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+<script src="script.js"></script>
 </body>
 </html>
