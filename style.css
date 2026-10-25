@@ -58,6 +58,7 @@ body {
   color: var(--plum);
   background: var(--paper);
   overflow-x: hidden;
+  zoom: 0.8;
 }
 
 h1, h2, h3, p, ul, ol, figure { margin: 0; }
@@ -84,6 +85,19 @@ em { font-style: italic; color: var(--berry); }
 
 
 /* ---------- 3. Utilities ---------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--medium) var(--ease), transform var(--medium) var(--ease);
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+/* .service also has its own hover transition, so we keep both together. */
+.js .service.reveal {
+  transition: opacity var(--medium) var(--ease), transform var(--medium) var(--ease),
+              background-color 0.5s var(--ease), color 0.5s var(--ease);
+}
+.js .flow:not(.is-visible)::before { transform: scaleX(0); }
+
 .container {
   width: min(100% - 2 * var(--gutter), var(--container));
   margin-inline: auto;
@@ -128,9 +142,6 @@ em { font-style: italic; color: var(--berry); }
 }
 
 .section-title { font-size: var(--fs-h2); }
-
-/* Content remains visible without JavaScript. */
-.reveal { opacity: 1; transform: none; }
 
 
 /* ---------- 4. Buttons ---------- */
@@ -318,23 +329,6 @@ em { font-style: italic; color: var(--berry); }
 .line:nth-child(2) .word { animation-delay: 0.35s; }
 
 .word--accent { font-style: italic; color: var(--berry); }
-
-.underline {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-  fill: none;
-  stroke: var(--plum);
-  stroke-width: 4;
-  stroke-linecap: round;
-}
-.underline path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw 1.4s var(--ease) 1.2s forwards;
-}
 
 .hero-lead {
   max-width: 34rem;
@@ -550,9 +544,7 @@ em { font-style: italic; color: var(--berry); }
   transform-origin: left;
   transition: transform 1.6s var(--ease) 0.3s;
 }
-.flow.is-visible::before { transform: scaleX(1); }
-/* Without JS the line is simply shown */
-.flow::before { transform: scaleX(1); }
+.js .flow:not(.is-visible)::before { transform: scaleX(0); }
 
 .flow li {
   position: relative;
@@ -578,14 +570,7 @@ em { font-style: italic; color: var(--berry); }
 .flow li:last-child { text-align: right; }
 .flow li:last-child .flow-num { left: auto; right: 0; }
 
-.values {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-4);
-}
-.values li { padding-top: var(--space-2); border-top: 2px solid var(--plum); }
-.values h3 { margin-bottom: 0.4rem; font-size: 1.5rem; }
+
 
 
 /* ---------- 9. Services ---------- */
@@ -907,11 +892,6 @@ em { font-style: italic; color: var(--berry); }
 @keyframes marquee {
   to { transform: translateX(-50%); }
 }
-@keyframes wave {
-  to { transform: translateX(-50%); }
-}
-
-
 /* ---------- 14. Responsive ---------- */
 
 /* Tablet */
@@ -922,8 +902,6 @@ em { font-style: italic; color: var(--berry); }
   .badge-text { font-size: 12px; }
 
   .about-head, .about-body { grid-column: 1 / -1; }
-  .values { grid-template-columns: 1fr; gap: var(--space-3); }
-
   .service { grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 7rem); }
   .service .deliverables { grid-column: 2 / 3; grid-row: 2; }
   .service-art { grid-column: 3; grid-row: 1 / span 2; }
@@ -1019,11 +997,10 @@ em { font-style: italic; color: var(--berry); }
     bottom: 0;
     width: 3px;
     height: auto;
-    transform: scaleY(0);
+    transform: scaleY(1);
     transform-origin: top;
   }
-  .flow.is-visible::before { transform: scaleY(1); }
-  .flow::before { transform: scaleY(1); }
+  .js .flow:not(.is-visible)::before {transform: scaleY(0); }
   .flow li { padding-top: 0; }
   .flow li:last-child { text-align: left; }
   .flow-num { left: -3.2rem; top: 0.1rem; }
@@ -1050,7 +1027,294 @@ em { font-style: italic; color: var(--berry); }
   .footer-inner { grid-template-columns: 1fr; gap: var(--space-3); }
 }
 
+html { scrollbar-gutter: stable; } /* keeps the layout from jumping when the modal hides the scrollbar */
 
+.site-header {
+  transition: background-color var(--fast) ease, box-shadow var(--fast) ease, transform 0.4s var(--ease);
+}
+.site-header.is-hidden { transform: translateY(-100%); }
+
+
+/* ---------- JS-2. Testimonials carousel ---------- */
+.testimonials {
+  padding-block: var(--space-6);
+  background: var(--pink);
+  color: var(--plum);
+}
+.testimonials-head { max-width: 46rem; }
+
+.carousel { max-width: 58rem; margin-top: var(--space-5); }
+
+.carousel-figure { margin: 0; }
+
+.carousel-slide {
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.carousel-slide.is-changing { opacity: 0; transform: translateY(14px); }
+ 
+.carousel-quote { margin: 0; }
+.carousel-quote p {
+  min-height: calc(1.3em * 4); /* reserves space so the controls do not jump */
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 1rem + 2.1vw, 2.5rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.carousel-quote p::before { content: "\201C"; }
+.carousel-quote p::after { content: "\201D"; }
+ 
+.carousel-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.carousel-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: var(--blue);
+  border: 2px solid var(--plum);
+  border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+}
+.carousel-avatar[data-tone="1"] { background: var(--mint); }
+.carousel-avatar[data-tone="2"] { background: var(--paper); }
+.carousel-avatar[data-tone="3"] { background: var(--plum); color: var(--paper); }
+ 
+.carousel-person { display: grid; line-height: 1.3; }
+.carousel-name { font-weight: 700; }
+.carousel-role { font-size: 0.95rem; }
+ 
+/* Controls only exist when JavaScript can make them work. */
+.carousel-controls { display: none; }
+.js .carousel-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+ 
+.carousel-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  font: inherit;
+  font-size: 1.3rem;
+  color: var(--plum);
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--fast) ease, color var(--fast) ease, transform var(--fast) var(--ease);
+}
+.carousel-btn:hover,
+.carousel-btn:focus-visible { background: var(--plum); color: var(--paper); }
+.carousel-btn:active { transform: scale(0.92); }
+ 
+.carousel-dots { display: flex; }
+.carousel-dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.carousel-dot::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--plum);
+  border-radius: 50%;
+  transition: transform var(--fast) var(--ease), background-color var(--fast) ease;
+}
+.carousel-dot:hover::before { background: var(--paper); }
+/* The active dot is bigger AND filled, so it never relies on color alone. */
+.carousel-dot[aria-current="true"]::before { background: var(--plum); transform: scale(1.4); }
+ 
+/* ---------- JS-3. Form validation messages ---------- */
+.field-error {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--berry);
+}
+.field-error:empty { display: none; }
+.field-error::before { content: "\26A0\00a0"; } /* warning sign: the message is never "color only" */
+ 
+.field [aria-invalid="true"] {
+  background: #fff6f7;
+  border-color: var(--berry);
+  box-shadow: inset 6px 0 0 var(--berry); /* thick bar on the left as a second, non-color cue */
+}
+.field [aria-invalid="true"]:focus {
+  box-shadow: inset 6px 0 0 var(--berry), 0 0 0 4px rgba(184, 74, 98, 0.28);
+}
+ 
+ 
+/* ---------- JS-4. Modal ---------- */
+body.modal-open { overflow: hidden; }
+ 
+.modal {
+  width: 38rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  color: var(--plum);
+  background: transparent;
+  border: 0;
+}
+.modal::backdrop { background: rgba(77, 36, 61, 0.65); }
+ 
+.modal-card {
+  position: relative;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  padding: var(--space-4);
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: 2rem 0.5rem 2rem 0.5rem;
+  box-shadow: 10px 10px 0 var(--berry);
+}
+ 
+.modal-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--plum);
+  background: var(--pink);
+  border: 2px solid var(--plum);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--fast) ease, color var(--fast) ease, transform 0.3s var(--ease);
+}
+.modal-close:hover,
+.modal-close:focus-visible { background: var(--plum); color: var(--paper); transform: rotate(90deg); }
+ 
+.modal-title {
+  margin-bottom: var(--space-2);
+  padding-right: 2.5rem; /* keeps the title clear of the close button */
+  font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3rem);
+}
+ 
+/* Project type "chips": real radio buttons, visually restyled. */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  min-width: 0;
+  margin: var(--space-3) 0;
+  padding: 0;
+  border: 0;
+}
+.chip-group legend { width: 100%; margin-bottom: 0.6rem; padding: 0; font-size: 0.95rem; font-weight: 700; }
+.chip { position: relative; }
+.chip input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 1.1rem;
+  font-weight: 500;
+  border: 2px solid var(--plum);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color var(--fast) ease, color var(--fast) ease;
+}
+.chip span:hover { background: var(--pink); }
+.chip input:checked + span { color: var(--paper); background: var(--plum); }
+.chip input:checked + span::before { content: "\2713\00a0"; } /* check mark: selection is not color only */
+.chip input:focus-visible + span { outline: 3px solid var(--berry); outline-offset: 3px; }
+ 
+.modal-subtitle { margin-bottom: 0.5rem; font-size: 1.15rem; }
+.modal-steps {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0 0 var(--space-3);
+  padding-left: 1.4rem;
+  list-style: decimal;
+}
+.modal-steps li::marker { font-weight: 700; color: var(--berry); }
+.modal-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+ 
+.modal[open] { animation: modal-in 0.45s var(--ease) both; }
+.modal[open]::backdrop { animation: fade-in 0.3s ease both; }
+.modal.is-closing { animation: modal-out 0.25s ease both; }
+.modal.is-closing::backdrop { animation: fade-out 0.25s ease both; }
+ 
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes modal-out {
+  to { opacity: 0; transform: translateY(16px) scale(0.98); }
+}
+@keyframes fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { to { opacity: 0; } }
+ 
+ 
+/* ---------- JS-5. Stats (animated counters) ---------- */
+.stats-block { grid-column: 1 / -1; }
+ 
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.stat { padding-top: var(--space-2); border-top: 2px solid var(--plum); }
+.stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 1.6rem + 4.6vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--berry);
+  font-variant-numeric: tabular-nums; /* digits keep the same width while counting */
+}
+.stat-label { margin-top: 0.4rem; font-weight: 500; }
+/* ---------- JS-6. Responsive rules for the new parts ---------- */
+@media (max-width: 960px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+}
+ 
+@media (max-width: 860px) {
+  /* backdrop-filter would trap the fixed full-screen mobile menu inside the 68px header box */
+  .site-header.is-scrolled {
+    background: var(--paper);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .carousel-quote p { min-height: calc(1.3em * 6); }
+  .modal-card { padding: var(--space-3); box-shadow: 6px 6px 0 var(--berry); }
+  .modal-actions .btn { flex: 1 1 100%; }  }
 /* ---------- 15. Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1063,7 +1327,7 @@ em { font-style: italic; color: var(--berry); }
     transition-delay: 0s !important;
   }
 
-  .reveal { opacity: 1; transform: none; }
+
 
   /* Marquee becomes a static, wrapping line of text */
   .marquee { transform: none; }
