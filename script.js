@@ -164,5 +164,156 @@
     render(current);
   }
 
+  /* 3. CONTACT FORM VALIDATION */
+  const VALIDATORS = {
+    name(value) {
+      if (!value) return "Please tell us your name.";
+      if (value.length < 2) return "Your name needs at least 2 characters.";
+      if (!/^[\p{L}][\p{L}\s'’.-]*$/u.test(value)) return "Please use letters only (spaces, hyphens and apostrophes are fine).";
+      return "";
+    },
+    email(value) {
+      if (!value) return "Please enter your email address.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return "That email doesn't look right. Try something like name@example.com.";
+      return "";
+    },
+    project(value) {
+      return value ? "" : "Please choose a project type.";
+    },
+    message(value) {
+      if (!value) return "Please tell us a little about your idea.";
+      if (value.length < 10) return `Add a few more words: at least 10 characters (you have ${value.length}).`;
+      if (value.length > 1000) return "Please keep your message under 1000 characters.";
+      return "";
+    },
+  };
+
+  function initFormValidation() {
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+    if (!form || !status) return;
+
+    const fields = Array.from(form.elements).filter((element) => VALIDATORS[element.name]);
+
+    function setError(field, message) {
+      const errorEl = document.getElementById(`${field.id}-error`);
+      if (errorEl) errorEl.textContent = message;
+      if (message) field.setAttribute("aria-invalid", "true");
+      else field.removeAttribute("aria-invalid");
+    }
+
+    function validateField(field) {
+      const value = field.tagName === "SELECT" ? field.value : field.value.trim();
+      const message = VALIDATORS[field.name](value);
+      setError(field, message);
+      return message === "";
+    }
+
+    fields.forEach((field) => {
+      field.addEventListener("blur", () => {
+        if (field.tagName !== "SELECT") field.value = field.value.trim();
+        if (field.value !== "" || field.hasAttribute("aria-invalid")) validateField(field);
+      });
+      const liveEvent = field.tagName === "SELECT" ? "change" : "input";
+      field.addEventListener(liveEvent, () => {
+        if (field.hasAttribute("aria-invalid")) validateField(field);
+      });
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      status.textContent = "";
+      status.classList.remove("is-shown");
+
+      let firstInvalid = null;
+      fields.forEach((field) => {
+        if (!validateField(field) && !firstInvalid) firstInvalid = field;
+      });
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+      }
+
+      const firstName = form.elements.name.value.trim().split(" ")[0];
+      status.textContent = `Thank you, ${firstName}! we will contact you soon`;
+      status.classList.add("is-shown");
+      form.reset();
+      fields.forEach((field) => setError(field, ""));
+    });
+  }
+
+
+  /* 4. CTA MODAL */
+  function initModal() {
+    const dialog = document.getElementById("project-modal");
+    const triggers = document.querySelectorAll("[data-modal-open='project-modal']");
+    if (!dialog || !triggers.length || typeof dialog.showModal !== "function") return;
+
+    const modalForm = document.getElementById("modal-form");
+    const projectSelect = document.getElementById("project");
+    const nameInput = document.getElementById("name");
+    let lastTrigger = null;
+    let closing = false;
+
+    function open(trigger) {
+      if (dialog.open) return;
+      lastTrigger = trigger;
+      document.body.classList.add("modal-open");
+      dialog.showModal();
+    }
+
+    function close(afterClose) {
+      if (!dialog.open || closing) return;
+      closing = true;
+      dialog.classList.add("is-closing");
+      window.setTimeout(() => {
+        dialog.close();
+        dialog.classList.remove("is-closing");
+        document.body.classList.remove("modal-open");
+        closing = false;
+        if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+        if (typeof afterClose === "function") afterClose();
+      }, reduceMotion.matches ? 0 : 250);
+    }
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        open(trigger);
+      });
+    });
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog || event.target.closest("[data-modal-close]")) close();
+    });
+
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      close();
+    });
+
+    dialog.addEventListener("close", () => document.body.classList.remove("modal-open"));
+
+    if (modalForm) {
+      modalForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const choice = modalForm.querySelector("input[name='modal-project']:checked");
+
+        if (choice && projectSelect) {
+          projectSelect.value = choice.value;
+          projectSelect.dispatchEvent(new Event("change"));
+        }
+
+        close(() => {
+          const contact = document.getElementById("contact");
+          if (contact) contact.scrollIntoView();
+          if (nameInput) nameInput.focus({ preventScroll: true });
+        });
+      });
+    }
+  }
+
+
 
 })();
