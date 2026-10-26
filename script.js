@@ -164,7 +164,6 @@
     render(current);
   }
 
-
   /* 3. CONTACT FORM VALIDATION */
   const VALIDATORS = {
     name(value) {
