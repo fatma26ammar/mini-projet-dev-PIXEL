@@ -3,7 +3,7 @@
 
 /* ---------- 1. Design tokens ---------- */
 :root {
-  /* Palette */
+  /* Brand color palette */
   --mint: #CDF7F6;
   --blue: #8FB8DE;
   --pink: #F7CACD;
@@ -11,7 +11,7 @@
   --plum: #4D243D;
   --paper: #FFFDFB;
 
-  /* Typography */
+  /* Font families and sizes */
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
@@ -20,7 +20,7 @@
   --fs-h2: clamp(2.4rem, 1.4rem + 4.5vw, 5.5rem);
   --fs-hero: clamp(3.1rem, 1.2rem + 8.5vw, 8.5rem);
 
-  /* Spacing */
+  /* Reusable spacing scale */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -28,13 +28,13 @@
   --space-5: 4rem;
   --space-6: clamp(5rem, 10vw, 9rem);
 
-  /* Layout */
+  /* Shared layout values */
   --container: 1200px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --header-h: 76px;
   --radius: 1.5rem;
 
-  /* Motion */
+  /* Animation timing values */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --fast: 0.25s;
   --medium: 0.7s;
@@ -42,14 +42,17 @@
 
 
 /* ---------- 2. Reset and base ---------- */
+/* Apply predictable sizing to every element. */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Set page scrolling and anchor behavior. */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 1rem);
   -webkit-text-size-adjust: 100%;
 }
 
+/* Set the default page appearance. */
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -58,13 +61,18 @@ body {
   color: var(--plum);
   background: var(--paper);
   overflow-x: hidden;
+  zoom: 0.8;
 }
 
+/* Remove default spacing from text and lists. */
 h1, h2, h3, p, ul, ol, figure { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
+/* Make media responsive inside its container. */
 img, svg { display: block; max-width: 100%; }
+/* Keep links using the surrounding text color. */
 a { color: inherit; }
 
+/* Shared heading typography. */
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -72,23 +80,42 @@ h1, h2, h3 {
   letter-spacing: -0.02em;
 }
 
+/* Highlight emphasized words with the accent color. */
 em { font-style: italic; color: var(--berry); }
 
+/* Provide a visible keyboard focus indicator. */
 :focus-visible {
   outline: 3px solid var(--berry);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
+/* Style text selected by the user. */
 ::selection { background: var(--pink); color: var(--plum); }
 
 
 /* ---------- 3. Utilities ---------- */
+/* Animate elements into view when JavaScript is enabled. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--medium) var(--ease), transform var(--medium) var(--ease);
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+/* .service also has its own hover transition, so we keep both together. */
+.js .service.reveal {
+  transition: opacity var(--medium) var(--ease), transform var(--medium) var(--ease),
+              background-color 0.5s var(--ease), color 0.5s var(--ease);
+}
+.js .flow:not(.is-visible)::before { transform: scaleX(0); }
+
+/* Center content within the shared maximum width. */
 .container {
   width: min(100% - 2 * var(--gutter), var(--container));
   margin-inline: auto;
 }
 
+/* Hide content visually while keeping it available to assistive technology. */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -101,6 +128,7 @@ em { font-style: italic; color: var(--berry); }
   border: 0;
 }
 
+/* Keep the accessibility skip link off-screen until focused. */
 .skip-link {
   position: fixed;
   top: 0.75rem;
@@ -113,8 +141,10 @@ em { font-style: italic; color: var(--berry); }
   text-decoration: none;
   transform: translateY(-200%);
 }
+/* Show the skip link when keyboard users focus it. */
 .skip-link:focus { transform: translateY(0); }
 
+/* Label sections with a compact outlined pill. */
 .section-label {
   display: inline-block;
   margin-bottom: var(--space-2);
@@ -127,13 +157,12 @@ em { font-style: italic; color: var(--berry); }
   border-radius: 999px;
 }
 
+/* Use the shared large section heading size. */
 .section-title { font-size: var(--fs-h2); }
-
-/* Content remains visible without JavaScript. */
-.reveal { opacity: 1; transform: none; }
 
 
 /* ---------- 4. Buttons ---------- */
+/* Shared button layout and appearance. */
 .btn {
   position: relative;
   display: inline-flex;
@@ -153,7 +182,7 @@ em { font-style: italic; color: var(--berry); }
   transition: color var(--fast) ease, border-color var(--fast) ease;
 }
 
-/* Sliding background */
+/* Slide the button background in on interaction. */
 .btn::before {
   content: "";
   position: absolute;
@@ -168,10 +197,12 @@ em { font-style: italic; color: var(--berry); }
 .btn:hover,
 .btn:focus-visible { color: var(--paper); }
 
+/* Move button arrows on hover or focus. */
 .btn-arrow { transition: transform var(--fast) var(--ease); }
 .btn:hover .btn-arrow,
 .btn:focus-visible .btn-arrow { transform: translateX(6px); }
 
+/* Primary filled button variant. */
 .btn--primary {
   background: var(--berry);
   border-color: var(--berry);
@@ -181,15 +212,18 @@ em { font-style: italic; color: var(--berry); }
 .btn--primary:hover,
 .btn--primary:focus-visible { border-color: var(--plum); }
 
+/* Secondary transparent button variant. */
 .btn--ghost { background: transparent; }
 .btn--ghost:hover .btn-arrow,
 .btn--ghost:focus-visible .btn-arrow { transform: translateY(5px); }
 
+/* Compact and full-width button variants. */
 .btn--small { min-height: 44px; padding: 0.5rem 1.2rem; }
 .btn--block { width: 100%; }
 
 
 /* ---------- 5. Header and navigation ---------- */
+/* Fixed site header and its scrolling state. */
 .site-header {
   background-color:#F7CACD;
   position: fixed;
@@ -205,6 +239,7 @@ em { font-style: italic; color: var(--berry); }
   box-shadow: 0 1px 0 rgba(77, 36, 61, 0.12);
 }
 
+/* Header contents are arranged in one horizontal row. */
 .header-inner {
   display: flex;
   align-items: center;
@@ -215,6 +250,7 @@ em { font-style: italic; color: var(--berry); }
   margin-inline: auto;
 }
 
+/* Brand name shown in the header. */
 .wordmark {
   display: inline-flex;
   align-items: baseline;
@@ -225,6 +261,7 @@ em { font-style: italic; color: var(--berry); }
   letter-spacing: -0.03em;
   text-decoration: none;
 }
+/* Decorative animated dot beside the brand name. */
 .wordmark-dot {
   width: 0.4em;
   height: 0.4em;
@@ -233,9 +270,11 @@ em { font-style: italic; color: var(--berry); }
   animation: morph 8s ease-in-out infinite;
 }
 
+/* Navigation wrapper and link list. */
 .primary-nav { display: flex; align-items: center; gap: var(--space-3); }
 .nav-list { display: flex; gap: var(--space-3); }
 
+/* Individual navigation links. */
 .nav-list a {
   position: relative;
   display: inline-block;
@@ -243,7 +282,7 @@ em { font-style: italic; color: var(--berry); }
   font-weight: 500;
   text-decoration: none;
 }
-/* Animated underline */
+/* Animated navigation-link underline. */
 .nav-list a::after {
   content: "";
   position: absolute;
@@ -263,6 +302,7 @@ em { font-style: italic; color: var(--berry); }
   transform-origin: left;
 }
 
+/* Hidden checkbox used to control mobile navigation. */
 .nav-menu-toggle {
   position: absolute;
   width: 1px;
@@ -272,9 +312,10 @@ em { font-style: italic; color: var(--berry); }
   white-space: nowrap;
   pointer-events: none;
 }
+/* Hide the mobile toggle on larger screens. */
 .nav-toggle { display: none; }
 
-
+/* Hero section and its decorative background. */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -289,6 +330,7 @@ em { font-style: italic; color: var(--berry); }
     var(--paper);
 }
 
+/* Hero text and artwork columns. */
 .hero-inner {
   position: relative;
   display: grid;
@@ -301,6 +343,7 @@ em { font-style: italic; color: var(--berry); }
 }
 
 
+/* Large hero heading and animated text lines. */
 .hero-title { font-size: var(--fs-hero); line-height: 0.98; }
 
 .line {
@@ -309,6 +352,7 @@ em { font-style: italic; color: var(--berry); }
   padding-bottom: 0.2em;
   margin-bottom: -0.2em;
 }
+/* Individual animated hero words. */
 .word {
   position: relative;
   display: inline-block;
@@ -317,25 +361,10 @@ em { font-style: italic; color: var(--berry); }
 .line:nth-child(1) .word { animation-delay: 0.15s; }
 .line:nth-child(2) .word { animation-delay: 0.35s; }
 
+/* Accent styling for the highlighted hero word. */
 .word--accent { font-style: italic; color: var(--berry); }
 
-.underline {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-  fill: none;
-  stroke: var(--plum);
-  stroke-width: 4;
-  stroke-linecap: round;
-}
-.underline path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw 1.4s var(--ease) 1.2s forwards;
-}
-
+/* Supporting hero text and actions. */
 .hero-lead {
   max-width: 34rem;
   margin-top: var(--space-3);
@@ -356,6 +385,7 @@ em { font-style: italic; color: var(--berry); }
 .delay-4 { animation-delay: 0.8s; }
 
 /* Hero artwork */
+/* Container for the abstract hero illustration. */
 .hero-art {
   position: relative;
   width: 100%;
@@ -364,14 +394,17 @@ em { font-style: italic; color: var(--berry); }
   margin-inline: auto;
 }
 
+/* Shared positioning for decorative artwork shapes. */
 .blob { position: absolute; will-change: transform; }
 
+/* Large pink background shape. */
 .blob--pink {
   inset: 6% 8% 14% 4%;
   background: var(--pink);
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   animation: morph 14s ease-in-out infinite, spin 40s linear infinite;
 }
+/* Floating blue artwork shape. */
 .blob--blue {
   width: 52%;
   height: 52%;
@@ -381,6 +414,7 @@ em { font-style: italic; color: var(--berry); }
   border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
   animation: morph 11s ease-in-out infinite reverse, float 9s ease-in-out infinite;
 }
+/* Floating mint artwork shape. */
 .blob--mint {
   width: 38%;
   height: 38%;
@@ -390,6 +424,7 @@ em { font-style: italic; color: var(--berry); }
   border-radius: 50% 50% 30% 70% / 50% 70% 30% 50%;
   animation: morph 13s ease-in-out infinite, float 11s ease-in-out -4s infinite;
 }
+/* Small floating accent dot. */
 .dot {
   position: absolute;
   top: 4%;
@@ -401,6 +436,7 @@ em { font-style: italic; color: var(--berry); }
   animation: float 7s ease-in-out -2s infinite;
 }
 
+/* Decorative pixel pattern. */
 .pixel-grid {
   position: absolute;
   top: 26%;
@@ -410,6 +446,7 @@ em { font-style: italic; color: var(--berry); }
   grid-template-columns: repeat(4, 1fr);
   gap: 4%;
 }
+/* Individual pixel squares and their variations. */
 .pixel-grid span {
   aspect-ratio: 1;
   background: var(--plum);
@@ -423,6 +460,7 @@ em { font-style: italic; color: var(--berry); }
 .pixel-grid span:nth-child(5n) { animation-delay: -3.6s; }
 .pixel-grid span:nth-child(7n) { animation-delay: -0.6s; }
 
+/* Decorative curved SVG line. */
 .swoosh {
   position: absolute;
   left: -4%;
@@ -434,6 +472,7 @@ em { font-style: italic; color: var(--berry); }
   stroke-width: 3;
   stroke-linecap: round;
 }
+/* Draw the curved line when the hero loads. */
 .swoosh path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
@@ -441,6 +480,7 @@ em { font-style: italic; color: var(--berry); }
 }
 
 /* Rotating circular label */
+/* Circular call-to-action badge. */
 .badge {
   position: absolute;
   right: 0;
@@ -456,6 +496,7 @@ em { font-style: italic; color: var(--berry); }
   transition: transform 0.4s var(--ease);
 }
 .badge:hover, .badge:focus-visible { transform: scale(1.08); }
+/* Rotating badge text and arrow. */
 .badge svg {
   position: absolute;
   inset: 0;
@@ -476,6 +517,7 @@ em { font-style: italic; color: var(--berry); }
 
 
 /* ---------- 7. Marquee ---------- */
+/* Scrolling announcement strip between page sections. */
 .marquee {
   overflow: hidden;
   padding-block: 1.1rem;
@@ -486,6 +528,7 @@ em { font-style: italic; color: var(--berry); }
   position: relative;
   z-index: 2;
 }
+/* Moving track that contains the repeated announcement text. */
 .marquee-track {
   display: flex;
   width: max-content;
@@ -493,6 +536,7 @@ em { font-style: italic; color: var(--berry); }
 }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 
+/* One repeated group of marquee items. */
 .marquee-group {
   display: flex;
   align-items: center;
@@ -509,8 +553,10 @@ em { font-style: italic; color: var(--berry); }
 
 
 /* ---------- 8. About ---------- */
+/* About section spacing and clipping. */
 .about { padding-block: var(--space-6); overflow: hidden; }
 
+/* Two-column about section layout. */
 .about-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -518,9 +564,11 @@ em { font-style: italic; color: var(--berry); }
   row-gap: var(--space-5);
 }
 
+/* About section heading column. */
 .about-head { grid-column: 1 / 8; }
 .about-title { font-size: var(--fs-h2); }
 
+/* About description column. */
 .about-body {
   grid-column: 8 / 13;
   align-self: end;
@@ -530,6 +578,7 @@ em { font-style: italic; color: var(--berry); }
 .about-lead { font-size: var(--fs-lead); line-height: 1.45; font-weight: 500; }
 
 /* Connected services flow */
+/* Horizontal process flow connecting the services. */
 .flow {
   grid-column: 1 / -1;
   position: relative;
@@ -537,6 +586,7 @@ em { font-style: italic; color: var(--berry); }
   justify-content: space-between;
   gap: var(--space-2);
 }
+/* Connecting line behind the process steps. */
 .flow::before {
   content: "";
   position: absolute;
@@ -550,10 +600,9 @@ em { font-style: italic; color: var(--berry); }
   transform-origin: left;
   transition: transform 1.6s var(--ease) 0.3s;
 }
-.flow.is-visible::before { transform: scaleX(1); }
-/* Without JS the line is simply shown */
-.flow::before { transform: scaleX(1); }
+.js .flow:not(.is-visible)::before { transform: scaleX(0); }
 
+/* Individual process step labels. */
 .flow li {
   position: relative;
   padding-top: 2.6rem;
@@ -561,6 +610,7 @@ em { font-style: italic; color: var(--berry); }
   font-size: clamp(1.1rem, 0.8rem + 1.6vw, 1.8rem);
   font-weight: 700;
 }
+/* Number badge for each process step. */
 .flow-num {
   position: absolute;
   top: 0;
@@ -578,17 +628,11 @@ em { font-style: italic; color: var(--berry); }
 .flow li:last-child { text-align: right; }
 .flow li:last-child .flow-num { left: auto; right: 0; }
 
-.values {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-4);
-}
-.values li { padding-top: var(--space-2); border-top: 2px solid var(--plum); }
-.values h3 { margin-bottom: 0.4rem; font-size: 1.5rem; }
+
 
 
 /* ---------- 9. Services ---------- */
+/* Services section with a dark background. */
 .services {
   padding-block: var(--space-6);
   background: var(--plum);
@@ -597,10 +641,12 @@ em { font-style: italic; color: var(--berry); }
 }
 .services em { color: var(--pink); }
 
+/* Introductory services heading and copy. */
 .services-head { max-width: 46rem; margin-bottom: var(--space-5); }
 .services-head .section-title { margin-bottom: var(--space-2); }
 .services-intro { font-size: var(--fs-lead); line-height: 1.5; color: var(--mint); }
 
+/* One interactive service row. */
 .service {
   --service-bg: var(--pink);
   position: relative;
@@ -613,12 +659,14 @@ em { font-style: italic; color: var(--berry); }
   transition: background-color 0.5s var(--ease), color 0.5s var(--ease);
 }
 .service:last-child { border-bottom: 1px solid rgba(255, 253, 251, 0.3); }
+/* Service row color variants. */
 .service--brand { --service-bg: var(--pink); }
 .service--ui    { --service-bg: var(--blue); }
 .service--web   { --service-bg: var(--mint); }
 
 .service:hover { background: var(--service-bg); color: var(--plum); }
 
+/* Service number, description, deliverables, and artwork. */
 .service-num {
   font-family: var(--font-display);
   font-size: 2.2rem;
@@ -634,6 +682,7 @@ em { font-style: italic; color: var(--berry); }
 .service:hover .service-body h3 { transform: translateX(10px); }
 
 .deliverables { display: grid; gap: 0.35rem; font-size: 0.98rem; }
+/* Deliverable item marker. */
 .deliverables li { position: relative; padding-left: 1.4rem; }
 .deliverables li::before {
   content: "";
@@ -646,6 +695,7 @@ em { font-style: italic; color: var(--berry); }
   border-radius: 40% 60% 50% 50%;
 }
 
+/* Shared styling for service SVG illustrations. */
 .service-art svg {
   width: 100%;
   height: auto;
@@ -685,6 +735,7 @@ em { font-style: italic; color: var(--berry); }
 
 
 /* ---------- 10. Team ---------- */
+/* Team section and member grid. */
 .team {
   padding-block: var(--space-6) calc(var(--space-6) + 4rem);
   background: var(--mint);
@@ -705,6 +756,7 @@ em { font-style: italic; color: var(--berry); }
 .member:nth-child(3) { margin-top: var(--space-3); }
 
 .member h3 { margin-top: var(--space-2); font-size: 1.8rem; }
+/* Team member role label. */
 .role {
   display: inline-block;
   margin: 0.4rem 0 var(--space-1);
@@ -719,6 +771,7 @@ em { font-style: italic; color: var(--berry); }
 }
 .member:hover .role { background: var(--plum); color: var(--paper); }
 
+/* Team member portrait artwork. */
 .portrait { width: 100%; max-width: 300px; height: auto; overflow: visible; }
 .portrait > * { transition: transform 0.6s var(--ease), fill 0.5s ease; }
 .portrait .p-bg { transform-origin: 50% 50%; transform-box: fill-box; transform: scale(1.04); }
@@ -736,6 +789,7 @@ em { font-style: italic; color: var(--berry); }
 
 
 /* ---------- 11. Contact ---------- */
+/* Contact section and its curved lower edge. */
 .contact {
   position: relative;
   margin-top: -3.5rem;
@@ -748,6 +802,7 @@ em { font-style: italic; color: var(--berry); }
 .contact em { color: var(--pink); }
 
 
+/* Contact text and form columns. */
 .contact-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
@@ -772,6 +827,7 @@ em { font-style: italic; color: var(--berry); }
 .contact :focus-visible { outline-color: var(--pink); }
 
 /* Form */
+/* Contact form card. */
 .contact-form {
   padding: var(--space-4);
   color: var(--plum);
@@ -782,9 +838,11 @@ em { font-style: italic; color: var(--berry); }
 .contact-form :focus-visible { outline-color: var(--berry); }
 
 
+/* Form field spacing and labels. */
 .field { margin-bottom: var(--space-3); }
 .field label { display: block; margin-bottom: 0.4rem; font-weight: 700; font-size: 0.95rem; }
 
+/* Shared input, select, and textarea styling. */
 .field input,
 .field select,
 .field textarea {
@@ -810,10 +868,12 @@ em { font-style: italic; color: var(--berry); }
   box-shadow: 0 0 0 4px rgba(184, 74, 98, 0.28);
 }
 /* Show invalid state only after the user has interacted */
+/* Highlight invalid fields after user interaction. */
 .field input:user-invalid,
 .field select:user-invalid,
 .field textarea:user-invalid { border-color: var(--berry); background: #fff6f7; }
 
+/* Form feedback message area. */
 .form-status {
   min-height: 1.5rem;
   margin-top: var(--space-2);
@@ -823,6 +883,7 @@ em { font-style: italic; color: var(--berry); }
 
 
 /* ---------- 12. Footer ---------- */
+/* Footer background and spacing. */
 .site-footer {
   position: relative;
   margin-top: -5rem;
@@ -831,6 +892,7 @@ em { font-style: italic; color: var(--berry); }
   color: var(--plum);
   overflow: hidden;
 }
+/* Footer columns and brand area. */
 .footer-inner {
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr;
@@ -838,6 +900,7 @@ em { font-style: italic; color: var(--berry); }
   align-items: start;
 }
 .footer-brand { grid-row: span 1; }
+/* Large outlined footer wordmark. */
 .footer-wordmark {
   font-family: var(--font-display);
   font-size: clamp(4rem, 2rem + 9vw, 9rem);
@@ -856,6 +919,7 @@ em { font-style: italic; color: var(--berry); }
   font-style: italic;
 }
 
+/* Footer navigation and social links. */
 .footer-nav ul, .footer-social { display: grid; gap: 0.2rem; }
 .footer-nav a, .footer-social a {
   display: inline-block;
@@ -868,15 +932,14 @@ em { font-style: italic; color: var(--berry); }
 .footer-nav a:hover, .footer-social a:hover,
 .footer-nav a:focus-visible, .footer-social a:focus-visible { background-size: 100% 2px; }
 
+/* Copyright line at the bottom of the footer. */
 .footer-copy {
   grid-column: 1 / -1;
   padding-top: var(--space-3);
   font-size: 0.88rem;
   border-top: 1px solid rgba(77, 36, 61, 0.35);
 }
-
-
-/* ---------- 13. Keyframes ---------- */
+/* Reusable animation definitions. */
 @keyframes rise {
   from { transform: translateY(110%); }
   to   { transform: translateY(0); }
@@ -907,12 +970,7 @@ em { font-style: italic; color: var(--berry); }
 @keyframes marquee {
   to { transform: translateX(-50%); }
 }
-@keyframes wave {
-  to { transform: translateX(-50%); }
-}
-
-
-/* ---------- 14. Responsive ---------- */
+/* Responsive layout adjustments. */
 
 /* Tablet */
 @media (max-width: 960px) {
@@ -922,8 +980,6 @@ em { font-style: italic; color: var(--berry); }
   .badge-text { font-size: 12px; }
 
   .about-head, .about-body { grid-column: 1 / -1; }
-  .values { grid-template-columns: 1fr; gap: var(--space-3); }
-
   .service { grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 7rem); }
   .service .deliverables { grid-column: 2 / 3; grid-row: 2; }
   .service-art { grid-column: 3; grid-row: 1 / span 2; }
@@ -1019,11 +1075,10 @@ em { font-style: italic; color: var(--berry); }
     bottom: 0;
     width: 3px;
     height: auto;
-    transform: scaleY(0);
+    transform: scaleY(1);
     transform-origin: top;
   }
-  .flow.is-visible::before { transform: scaleY(1); }
-  .flow::before { transform: scaleY(1); }
+  .js .flow:not(.is-visible)::before {transform: scaleY(0); }
   .flow li { padding-top: 0; }
   .flow li:last-child { text-align: left; }
   .flow-num { left: -3.2rem; top: 0.1rem; }
@@ -1050,8 +1105,311 @@ em { font-style: italic; color: var(--berry); }
   .footer-inner { grid-template-columns: 1fr; gap: var(--space-3); }
 }
 
+html { scrollbar-gutter: stable; } 
+/* keeps the layout from jumping when the modal hides the scrollbar */
 
-/* ---------- 15. Reduced motion ---------- */
+.site-header {
+  transition: background-color var(--fast) ease, box-shadow var(--fast) ease, transform 0.4s var(--ease);
+}
+.site-header.is-hidden { transform: translateY(-100%); }
+
+
+/* Testimonials section and rotating quote carousel. */
+.testimonials {
+  padding-block: var(--space-6);
+  background: var(--pink);
+  color: var(--plum);
+}
+.testimonials-head { max-width: 46rem; }
+
+.carousel { max-width: 58rem; margin-top: var(--space-5); }
+
+/* Holds the active testimonial quote. */
+.carousel-figure { margin: 0; }
+
+/* Fades a testimonial while the quote changes. */
+.carousel-slide {
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.carousel-slide.is-changing { opacity: 0; transform: translateY(14px); }
+ 
+/* Quote text and decorative quotation marks. */
+.carousel-quote { margin: 0; }
+.carousel-quote p {
+  min-height: calc(1.3em * 4); /* reserves space so the controls do not jump */
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 1rem + 2.1vw, 2.5rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.carousel-quote p::before { content: "\201C"; }
+.carousel-quote p::after { content: "\201D"; }
+ 
+/* Testimonial author identity row. */
+.carousel-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+/* Colored initials avatar for the author. */
+.carousel-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: var(--blue);
+  border: 2px solid var(--plum);
+  border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+}
+.carousel-avatar[data-tone="1"] { background: var(--mint); }
+.carousel-avatar[data-tone="2"] { background: var(--paper); }
+.carousel-avatar[data-tone="3"] { background: var(--plum); color: var(--paper); }
+ 
+/* Author name and role text. */
+.carousel-person { display: grid; line-height: 1.3; }
+.carousel-name { font-weight: 700; }
+.carousel-role { font-size: 0.95rem; }
+ 
+/* Controls only exist when JavaScript can make them work. */
+/* Previous/next buttons and slide indicators. */
+.carousel-controls { display: none; }
+.js .carousel-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* Circular previous and next carousel buttons. */
+.carousel-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  font: inherit;
+  font-size: 1.3rem;
+  color: var(--plum);
+  background: var(--paper);
+  border: 2px solid var(--plum);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--fast) ease, color var(--fast) ease, transform var(--fast) var(--ease);
+}
+.carousel-btn:hover,
+.carousel-btn:focus-visible { background: var(--plum); color: var(--paper); }
+.carousel-btn:active { transform: scale(0.92); }
+
+/* Dot navigation for selecting a testimonial. */
+.carousel-dots { display: flex; }
+.carousel-dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.carousel-dot::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--plum);
+  border-radius: 50%;
+  transition: transform var(--fast) var(--ease), background-color var(--fast) ease;
+}
+.carousel-dot:hover::before { background: var(--paper); }
+.carousel-dot[aria-current="true"]::before { background: var(--plum); transform: scale(1.4); }
+
+/* Inline validation message below a form field. */
+.field-error {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--berry);
+}
+.field-error:empty { display: none; }
+.field-error::before { content: "\26A0\00a0"; } 
+.field [aria-invalid="true"] {
+  background: #fff6f7;
+  border-color: var(--berry);
+  box-shadow: inset 6px 0 0 var(--berry); /* thick bar on the left as a second, non-color cue */
+}
+.field [aria-invalid="true"]:focus {
+  box-shadow: inset 6px 0 0 var(--berry), 0 0 0 4px rgba(184, 74, 98, 0.28);
+}
+/* Prevent the modal page from scrolling while it is open. */
+body.modal-open { overflow: hidden; }
+/* Native dialog container for the project brief form. */
+.modal {
+  width: 38rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  color: var(--plum);
+  background: transparent;
+  border: 0;
+}
+.modal::backdrop { background: rgba(77, 36, 61, 0.65); }
+
+/* Modal content card. */
+.modal-card {
+  position: relative;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  padding: var(--space-4);
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: 2rem 0.5rem 2rem 0.5rem;
+  box-shadow: 10px 10px 0 var(--berry);
+}
+
+/* Close button in the modal corner. */
+.modal-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--plum);
+  background: var(--pink);
+  border: 2px solid var(--plum);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--fast) ease, color var(--fast) ease, transform 0.3s var(--ease);
+}
+.modal-close:hover,
+.modal-close:focus-visible { background: var(--plum); color: var(--paper); transform: rotate(90deg); }
+ 
+/* Modal heading with space for the close button. */
+.modal-title {
+  margin-bottom: var(--space-2);
+  padding-right: 2.5rem; /* keeps the title clear of the close button */
+  font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3rem);
+}
+ 
+
+/* Service-option chip group in the modal form. */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  min-width: 0;
+  margin: var(--space-3) 0;
+  padding: 0;
+  border: 0;
+}
+.chip-group legend { width: 100%; margin-bottom: 0.6rem; padding: 0; font-size: 0.95rem; font-weight: 700; }
+.chip { position: relative; }
+/* Visually hidden checkbox inside each selectable chip. */
+.chip input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+/* Visible selectable chip label. */
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 1.1rem;
+  font-weight: 500;
+  border: 2px solid var(--plum);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color var(--fast) ease, color var(--fast) ease;
+}
+.chip span:hover { background: var(--pink); }
+.chip input:checked + span { color: var(--paper); background: var(--plum); }
+.chip input:checked + span::before { content: "\2713\00a0"; } 
+.chip input:focus-visible + span { outline: 3px solid var(--berry); outline-offset: 3px; }
+ 
+.modal-subtitle { margin-bottom: 0.5rem; font-size: 1.15rem; }
+.modal-steps {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0 0 var(--space-3);
+  padding-left: 1.4rem;
+  list-style: decimal;
+}
+.modal-steps li::marker { font-weight: 700; color: var(--berry); }
+.modal-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+ 
+.modal[open] { animation: modal-in 0.45s var(--ease) both; }
+.modal[open]::backdrop { animation: fade-in 0.3s ease both; }
+.modal.is-closing { animation: modal-out 0.25s ease both; }
+.modal.is-closing::backdrop { animation: fade-out 0.25s ease both; }
+ 
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes modal-out {
+  to { opacity: 0; transform: translateY(16px) scale(0.98); }
+}
+@keyframes fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { to { opacity: 0; } }
+ 
+ 
+
+/* Statistics block spanning the full content width. */
+.stats-block { grid-column: 1 / -1; }
+ 
+/* Responsive row of project statistics. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+/* Individual statistic with a dividing line. */
+.stat { padding-top: var(--space-2); border-top: 2px solid var(--plum); }
+.stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 1.6rem + 4.6vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--berry);
+  font-variant-numeric: tabular-nums; /* digits keep the same width while counting */
+}
+/* Description shown below each statistic value. */
+.stat-label { margin-top: 0.4rem; font-weight: 500; }
+/* Responsive rules for statistics and interactive components. */
+@media (max-width: 960px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+}
+ 
+@media (max-width: 860px) {
+  /* backdrop-filter would trap the fixed full-screen mobile menu inside the 68px header box */
+  .site-header.is-scrolled {
+    background: var(--paper);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .carousel-quote p { min-height: calc(1.3em * 6); }
+  .modal-card { padding: var(--space-3); box-shadow: 6px 6px 0 var(--berry); }
+  .modal-actions .btn { flex: 1 1 100%; }  }
+/* Respect users who prefer less animation. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
@@ -1063,7 +1421,7 @@ em { font-style: italic; color: var(--berry); }
     transition-delay: 0s !important;
   }
 
-  .reveal { opacity: 1; transform: none; }
+
 
   /* Marquee becomes a static, wrapping line of text */
   .marquee { transform: none; }
