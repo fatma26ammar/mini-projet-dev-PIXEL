@@ -1429,3 +1429,41 @@ body.modal-open { overflow: hidden; }
   .marquee-group:nth-child(2) { display: none; }
   .marquee-group { flex-wrap: wrap; white-space: normal; padding-inline: var(--gutter); }
 }
+
+/* ==========================================================
+   PHP PHASE — additions (paste at the END of style.css)
+   ========================================================== */
+
+/* Honeypot field: invisible for people, still present for bots.
+   (Not display:none, because some bots skip fields hidden that way.) */
+.field.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Server error message under the form (the success one already uses .is-shown) */
+.form-status.is-error {
+  padding: 0.8rem 1rem;
+  background: var(--paper);
+  color: var(--berry);
+  border-left: 4px solid var(--berry);
+  border-radius: 0.8rem;
+}
+
+/* Button while the message is being sent */
+.btn[disabled] {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+/* Live numbers read from the database (footer) */
+.server-stats {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.92rem;
+}
+.server-stats strong { font-weight: 700; }
+
